@@ -15,3 +15,4 @@ class Othello():
 
         self.window.bind('<Button-1>',self.click)
         
+    # change 
