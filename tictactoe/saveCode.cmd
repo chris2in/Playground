@@ -1,5 +1,5 @@
 git add *
-set arg1= %0
+set arg1= %*
 git commit -m "%arg1%"
 
 git push
