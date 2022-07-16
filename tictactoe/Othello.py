@@ -24,3 +24,5 @@ class Othello():
     def convertToposition(self, grid_position):
         grid_position = np.array(grid_position)
         return np.array(grid_position // (size_of_board/3),dtype = int)
+
+    # changed to test cmd code
