@@ -1,7 +1,4 @@
 # https://towardsdatascience.com/making-simple-games-in-python-f35f3ae6f31a
-
-from tkinter import *
-
 # Author: aqeelanwar
 # Created: 12 March,2020, 7:06 PM
 # Email: aqeel.anwar@gatech.edu
@@ -24,13 +21,8 @@ class Tic_Tac_Toe():
     def __init__(self):
         self.window = Tk()
         self.window.title('Tic-Tac-Toe')
-        # self.window.attributes('-fullscreen',True)
-
         self.canvas = Canvas(self.window, width=size_of_board, height=size_of_board)
-        print('11')
-        print(self.window.winfo_width())
         self.canvas.pack()
-
         # Input from user in form of clicks
         self.window.bind('<Button-1>', self.click)
 
