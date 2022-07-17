@@ -111,6 +111,9 @@ class Othello():
         return 0 
 
     def refreshBoard(self,x,y,piece):
+        #starts here
+        #   refresh/flip piece after place piece
+        #   and update available grid for black and white
         return 0
 
     def render(self):
