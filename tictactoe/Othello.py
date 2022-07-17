@@ -30,7 +30,7 @@ class Othello():
         self.board[3][4] =2
         self.board[4][3] =2
 
-        print(self.board)
+        # print(self.board)
         # for i in range(len(self.board)):
         #     for o in range(len(self.board[i])):
         #         print(self.board[i][o],end='    ')
