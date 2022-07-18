@@ -1,4 +1,4 @@
-from distutils.DEBUGTEST import DEBUGTEST
+
 from msilib.schema import Billboard
 from tkinter import *
 import numpy as np
@@ -34,12 +34,13 @@ class Othello():
         self.board[4][4] =1
         self.board[3][4] =2
         self.board[4][3] =2
-
+        self.render()
         # print(self.board)
         # for i in range(len(self.board)):
         #     for o in range(len(self.board[i])):
         #         print(self.board[i][o],end='    ')
         #     print()
+        self.window.bind('<Key>',self.key_input)
 
         self.availableForWhite = True
         self.availableForBlack = True
@@ -94,9 +95,9 @@ class Othello():
                 #place a black piece
                 #which will be mark as 2
                 self.refreshBoard(x,y,2)
-                # self.board[x][y] = 2
+                self.board[x][y] = 2
             else:
-                # self.board[x][y]=1
+                self.board[x][y]=1
                 self.refreshBoard(x,y,1)
             self.Black_turns = not self.Black_turns
             
@@ -115,6 +116,26 @@ class Othello():
         #   refresh/flip piece after place piece
         #   and update available grid for black and white
         return 0
+
+    def lookUp(self,x,y,piece,Direction):
+        xDirection = 0
+        yDirection = 0
+        match Direction:
+            case "UP":
+                xDirection =0
+                yDirection =1
+            case "DOWN":
+                xDirection =0
+                yDirection =-1
+            case "LEFT":
+                xDirection =-1
+                yDirection =0
+            case "RIGHT":
+                xDirection =1
+                yDirection =0
+        
+
+
 
     def render(self):
         
@@ -149,7 +170,24 @@ class Othello():
         self.place(self.CordToGrid(event.x,event.y))
         self.isGameOver()
 
-        
+    def key_input(self,event):
+        print(event.keysym)
+
+        #fix here, only second key will be read
+
+
+
+        userInput = event.keysym
+        if(userInput in ['1','2','3','4','5','6','7','8']):
+            # print(userInput)
+            queryList = self.board[int(userInput)-1]
+            for i in queryList:
+                print(i, end='\t')
+        elif(userInput == "P"):
+            for i in range(len(self.board)):
+                for o in range(len(self.board[i])):
+                    print(self.board[i][o],end='\t')
+                print()
 
 
     def initialize_board(self):
@@ -162,6 +200,6 @@ class Othello():
     def mainloop(self):
         self.window.mainloop()
 
-
+print("S")
 game = Othello()
 game.mainloop()
