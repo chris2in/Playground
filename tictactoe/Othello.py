@@ -173,17 +173,21 @@ class Othello():
     def key_input(self,event):
         print(event.keysym)
 
-        #fix here, only second key will be read
+       
 
 
 
         userInput = event.keysym
         if(userInput in ['1','2','3','4','5','6','7','8']):
-            # print(userInput)
+            # print('i got ',userInput)
+            # print('going to pring ',userInput, 'row', self.board[int(userInput)-1])
             queryList = self.board[int(userInput)-1]
-            for i in queryList:
-                print(i, end='\t')
-        elif(userInput == "P"):
+            # print('query over')
+            # print(queryList)
+            for i in range(len(queryList)):
+                print(queryList[i], end='\t')
+            print("")
+        elif(userInput == "p"):
             for i in range(len(self.board)):
                 for o in range(len(self.board[i])):
                     print(self.board[i][o],end='\t')
