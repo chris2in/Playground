@@ -110,6 +110,7 @@ class Othello():
             print('end of this turn')
         self.generateAviSpot()
         self.render()
+        self.checkAvi(0,0)
         return 0 
 
     def refreshBoard(self,x,y,piece):
@@ -180,6 +181,14 @@ class Othello():
             return 0
         else:
             return 0 
+        if(blackAvi):
+            if(whiteAvi):
+                self.board[i][o]= 5
+            else:
+                self.board[i][o]= 3
+        else:
+            self.board[i][o]=4
+
 
         #   run test here, to see if 0,0 will update according to pieces on the right and below,
         #   case one: 1,2,2,2,1
@@ -189,6 +198,8 @@ class Othello():
         #   case five: 2,1,1,1,1
         #   case six: 0,0,0,0
         #   case seven: 1,1
+        #   pass the case with 5
+        
         
 
         
