@@ -11,7 +11,7 @@ symbolWhite = '#FFFFFF'
 symbolAVIWhite= '#0ABAB5'
 symbolAVIBlack = '#ff0000'
 symbol_thickness= 5
-DEBUGTEST = False
+DEBUGTEST = True
 
 class Othello():
     
@@ -145,13 +145,28 @@ class Othello():
                     # there are six more spot to check 
                     for col in range(6):
 
+                        #   need fix here
+                        #   no point always getting first 6
+                        #   need to make it dynamic 
+                        #   let s start working on different cases and automatic tests
+                        #   in python where reads array for test
+
+
+
                         #   if next one to [0][1] is same, continue until finding the different color one, then set Avi
                         #       otherwise, nothing happens 
-                        if nextSpot != self.board[0][col]:
+                        print (type(self.board[0][col]))
+                        print("TTT", col)
+                        print(self.board[0][col])
+                        if int(self.board[0][col]) > 0 and int(self.board[0][col])<3 and nextSpot != self.board[0][col]:
                             if(nextSpot==1):
+                                if (DEBUGTEST):
+                                    print("black avi")
                                 blackAvi=True
                                 break
                             else:
+                                if (DEBUGTEST):
+                                    print("white avi 1")
                                 whiteAvi=True
                                 break
                             if(blackAvi and whiteAvi):
@@ -160,12 +175,16 @@ class Othello():
                     if(not ( blackAvi and whiteAvi)):
                         downSpot = self.board[1][0]
                         for row in range(6):
-                            if downSpot !=self.board[row][0]:
+                            if self.board[row][0] >0 and self.board[row][0]<3 and  downSpot !=self.board[row][0]:
                             
                                 if(not blackAvi and downSpot==1):
+                                    if (DEBUGTEST):
+                                        print("black avi")
                                     blackAvi =True
                                     break
                                 elif(not whiteAvi and downSpot==2):
+                                    if (DEBUGTEST):
+                                        print("white avi 2")
                                     whiteAvi = True
                                     break
                                 
@@ -186,7 +205,7 @@ class Othello():
                 self.board[i][o]= 5
             else:
                 self.board[i][o]= 3
-        else:
+        elif(whiteAvi):
             self.board[i][o]=4
 
 
