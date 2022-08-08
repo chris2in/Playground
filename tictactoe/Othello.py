@@ -155,9 +155,9 @@ class Othello():
 
                         #   if next one to [0][1] is same, continue until finding the different color one, then set Avi
                         #       otherwise, nothing happens 
-                        print (type(self.board[0][col]))
-                        print("TTT", col)
-                        print(self.board[0][col])
+                        # print (type(self.board[0][col]))
+                        # print("TTT", col)
+                        # print(self.board[0][col])
                         if int(self.board[0][col]) > 0 and int(self.board[0][col])<3 and nextSpot != self.board[0][col]:
                             if(nextSpot==1):
                                 if (DEBUGTEST):
