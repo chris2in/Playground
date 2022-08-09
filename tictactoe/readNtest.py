@@ -22,7 +22,13 @@ def refresh(matrix,row,col):
             if(matrix[1][0]>0 and matrix[1][0]<3):
             
                 print()
+        if(col == 3):
+            print()
     
+    # checkright
+    
+
+
 
     if(blackAvi):
         if(whiteAvi):
