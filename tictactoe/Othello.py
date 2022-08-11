@@ -6,6 +6,12 @@ import numpy as np
 size_of_board= 800
 symbol_size= (size_of_board/8 - size_of_board/8)/2
 numPerRowCol = 8
+#   1 for white
+#   2 for black
+#   3 for available for white
+#   4 for available for black 
+#   5 for available for both 
+
 symbolBlack = '#000000'
 symbolWhite = '#FFFFFF'
 symbolAVIWhite= '#0ABAB5'
