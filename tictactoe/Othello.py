@@ -112,9 +112,9 @@ class Othello():
         return 0 
 
     def refreshBoard(self,x,y,piece):
-        #starts here
-        #   refresh/flip piece after place piece
-        #   and update available grid for black and white
+        # when a piece(color) is place at current location (x,y)
+        # it must be available spot for to be place 
+        # first check left
         return 0
 
     def lookUp(self,x,y,piece,Direction):
