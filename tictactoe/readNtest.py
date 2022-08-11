@@ -26,7 +26,13 @@ def refresh(matrix,row,col):
             print()
     
     # checkright
-    
+    pivot = matrix[row][col+index]
+    if (not(pivot<1 or pivot > 2 )):
+
+        for index in range(col+1, length):
+            return 0 
+            
+
 
 
 
