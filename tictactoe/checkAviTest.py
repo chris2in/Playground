@@ -1,9 +1,14 @@
 a = [[0,2,2,2,2,2,2,2,1],
      [0,0,0,0,0,0,0,0,0],
-     [0,0,0,0,0,0,0,0,0]]
+     [0,0,0,0,0,0,0,0,0]，
+     [0,0,0,0,0,0,0,0,0]，
+     [0,0,0,0,0,0,0,0,0]，
+     
+     ]
 
 
 length = len(a[0])
+height  = len(a)
 def checkavi(row,col):
     blackAvi = False
     whiteAvi = False
@@ -22,6 +27,8 @@ def checkavi(row,col):
                 else:
                     whiteAvi = True
 
+    
+
 
     if(blackAvi):
             if(whiteAvi):
@@ -35,4 +42,4 @@ def checkavi(row,col):
 
 
 
-print(checkavi(0,0))
+print(checkavi(0,length))
