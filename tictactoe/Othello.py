@@ -11,7 +11,7 @@ symbolWhite = '#FFFFFF'
 symbolAVIWhite= '#0ABAB5'
 symbolAVIBlack = '#ff0000'
 symbol_thickness= 5
-DEBUGTEST = False
+DEBUGTEST = True
 
 class Othello():
     
@@ -108,7 +108,9 @@ class Othello():
                         print(self.board[i][o],end='    ')
                     print()
             print('end of this turn')
+        self.generateAviSpot()
         self.render()
+        self.checkAvi(0,0)
         return 0 
 
     def refreshBoard(self,x,y,piece):
@@ -116,6 +118,112 @@ class Othello():
         # it must be available spot for to be place 
         # first check left
         return 0
+    
+    def generateAviSpot(self):
+        for i in range(len(self.board)):
+            for o in range(len(self.board[i])):
+                if(self.board[i][o] != 1 and self.board[i][o] != 2):
+                    self.board[i][o] = self.checkAvi(i,o)  
+
+        return 0
+
+    def checkAvi(self,i,o):
+        blackAvi = False
+        whiteAvi = False
+
+        
+
+        if (i == 0 ):
+
+            #   when checking the top left corner 
+            if(o == 0):
+
+                if(self.board[0][1]>0 and self.board[0][1]< 3):
+                    nextSpot = self.board[0][1]
+                #   checking right-direction 
+
+                    # there are six more spot to check 
+                    for col in range(6):
+
+                        #   need fix here
+                        #   no point always getting first 6
+                        #   need to make it dynamic 
+                        #   let s start working on different cases and automatic tests
+                        #   in python where reads array for test
+
+
+
+                        #   if next one to [0][1] is same, continue until finding the different color one, then set Avi
+                        #       otherwise, nothing happens 
+                        # print (type(self.board[0][col]))
+                        # print("TTT", col)
+                        # print(self.board[0][col])
+                        if int(self.board[0][col]) > 0 and int(self.board[0][col])<3 and nextSpot != self.board[0][col]:
+                            if(nextSpot==1):
+                                if (DEBUGTEST):
+                                    print("black avi")
+                                blackAvi=True
+                                break
+                            else:
+                                if (DEBUGTEST):
+                                    print("white avi 1")
+                                whiteAvi=True
+                                break
+                            if(blackAvi and whiteAvi):
+                                break
+                    
+                    if(not ( blackAvi and whiteAvi)):
+                        downSpot = self.board[1][0]
+                        for row in range(6):
+                            if self.board[row][0] >0 and self.board[row][0]<3 and  downSpot !=self.board[row][0]:
+                            
+                                if(not blackAvi and downSpot==1):
+                                    if (DEBUGTEST):
+                                        print("black avi")
+                                    blackAvi =True
+                                    break
+                                elif(not whiteAvi and downSpot==2):
+                                    if (DEBUGTEST):
+                                        print("white avi 2")
+                                    whiteAvi = True
+                                    break
+                                
+
+                
+                                    
+            elif(o==7):
+                return 0
+            else:
+                return 0
+
+        elif(i == 7):
+            return 0
+        else:
+            return 0 
+        if(blackAvi):
+            if(whiteAvi):
+                self.board[i][o]= 5
+            else:
+                self.board[i][o]= 3
+        elif(whiteAvi):
+            self.board[i][o]=4
+
+
+        #   run test here, to see if 0,0 will update according to pieces on the right and below,
+        #   case one: 1,2,2,2,1
+        #   case two: 1,2,1
+        #   case three: 1,0,0,0
+        #   case four: 2,1,1,2
+        #   case five: 2,1,1,1,1
+        #   case six: 0,0,0,0
+        #   case seven: 1,1
+        #   pass the case with 5
+        
+        
+
+        
+
+         
 
     def lookUp(self,x,y,piece,Direction):
         xDirection = 0
@@ -187,6 +295,14 @@ class Othello():
             for i in range(len(queryList)):
                 print(queryList[i], end='\t')
             print("")
+        elif(userInput in ['q','w','e','r','t','y','u','i']):
+            
+            
+            offset = ['q','w','e','r','t','y','u','i'].index(userInput)
+            for i in range(len(self.board)):
+                print(self.board[i][offset],end='\t')
+            print("")
+            
         elif(userInput == "p"):
             for i in range(len(self.board)):
                 for o in range(len(self.board[i])):
