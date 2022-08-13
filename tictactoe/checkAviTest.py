@@ -1,3 +1,5 @@
+from logging import exception
+from tkinter import E
 from turtle import left
 
 
@@ -19,6 +21,7 @@ def checkavi(row,col):
     # for i in range(row+1,length):
     #   checking right ward
     # if(not (col >=length)):
+    # try:
     if(col < length-1):
         # print("checking rightward")
         rightPivot = a[row][col+1]
@@ -44,9 +47,10 @@ def checkavi(row,col):
         leftPivot = a[row][col-1]
         if(leftPivot >0 and leftPivot<3):
             for index in range(col-1 ,0,-1):
-                nextLeft = a[row][col+index]
+                nextLeft = a[row][index]
                 if(nextLeft>2 or nextLeft <1):
                     break
+
                 if(nextLeft != leftPivot):
                     if(leftPivot == 2):
                         blackAvi = True
@@ -68,7 +72,7 @@ def checkavi(row,col):
         downPivot = a[row+1][col]
         if(downPivot > 0 and downPivot <3):
             for index in range(row+1, height):
-                nextDown = a[row+index][col]
+                nextDown = a[index][col]
 
                 # print("in loop, index col is {}, next down is {}".format(index, nextDown))
                 if(nextDown>2 or nextDown<1):
@@ -87,8 +91,8 @@ def checkavi(row,col):
         # if(row > 0 ):
         upPivot = a[row-1][col]
         if(upPivot > 0 and upPivot < 3 ):
-            for index in range(row,0,-1):
-                nextUp  = a[row-index][col]
+            for index in range(row-1,0,-1):
+                nextUp  = a[index][col]
                 if(nextUp>2 or nextUp <1):
                     break
                 # print("index is {}, the up pivot is {}, and nextUp is {}".format(index, upPivot, nextUp))
@@ -102,7 +106,7 @@ def checkavi(row,col):
                         whiteAvi = True
                         break
                         
-        
+    
 
 
         
@@ -122,11 +126,20 @@ def checkavi(row,col):
 
 # print(checkavi(0,0))
 # print(checkavi(4,2))
+errorMessage = []
 
 for row in range(0,len(a)):
     for col in range(0,len(a[0])):
-        if(a[row][col] <1):
-            print(checkavi(row,col),end = '\t')
-        else:
-            print(a[row][col],end = '\t')
+        try:
+            if(a[row][col] <1):
+                print(checkavi(row,col),end = '\t')
+            else:
+                print(a[row][col],end = '\t')
+        except Exception as e:
+            print("x",end = '\t')
+            errorMessage.append("in row {} col {}, the error message was {}".format(row,col,e))
     print()
+
+# checkavi(1,5)
+for i in (errorMessage):
+    print(i)
