@@ -3,6 +3,9 @@ from msilib.schema import Billboard
 from tkinter import *
 import numpy as np
 
+import checkAviTest
+
+
 size_of_board= 800
 symbol_size= (size_of_board/8 - size_of_board/8)/2
 numPerRowCol = 8
@@ -116,7 +119,7 @@ class Othello():
             print('end of this turn')
         self.generateAviSpot()
         self.render()
-        self.checkAvi(0,0)
+        # self.checkAvi(0,0)
         return 0 
 
     def refreshBoard(self,x,y,piece):
@@ -129,7 +132,7 @@ class Othello():
         for i in range(len(self.board)):
             for o in range(len(self.board[i])):
                 if(self.board[i][o] != 1 and self.board[i][o] != 2):
-                    self.board[i][o] = self.checkAvi(i,o)  
+                    self.board[i][o] = checkAviTest.checkavi(self.board,i,o)  
 
         return 0
 
@@ -231,23 +234,6 @@ class Othello():
 
          
 
-    def lookUp(self,x,y,piece,Direction):
-        xDirection = 0
-        yDirection = 0
-        match Direction:
-            case "UP":
-                xDirection =0
-                yDirection =1
-            case "DOWN":
-                xDirection =0
-                yDirection =-1
-            case "LEFT":
-                xDirection =-1
-                yDirection =0
-            case "RIGHT":
-                xDirection =1
-                yDirection =0
-        
 
 
 
@@ -327,5 +313,7 @@ class Othello():
         self.window.mainloop()
 
 print("S")
+# checkAviTest.checkavi()
+
 game = Othello()
 game.mainloop()

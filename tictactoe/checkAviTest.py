@@ -11,12 +11,14 @@ a = [[0,2,2,2,2,2,2,2,1],
      ]
 
 
-length = len(a[0])
-height  = len(a)-1
-def checkavi(row,col):
+# length = len(board[0])
+# height  = len(a)-1
+def checkavi(board, row,col):
+    length = len(board[0])
+    height = len(board)-1
     blackAvi = False
     whiteAvi = False
-    if(a[row][col] >0 and a[row][col] < 3):
+    if(board[row][col] >0 and board[row][col] < 3):
         return 
     # for i in range(row+1,length):
     #   checking right ward
@@ -24,10 +26,10 @@ def checkavi(row,col):
     # try:
     if(col < length-1):
         # print("checking rightward")
-        rightPivot = a[row][col+1]
+        rightPivot = board[row][col+1]
         if (rightPivot>0 and rightPivot<3 ):
             for index in range(col+1,length):
-                nextRight = a[row][index]
+                nextRight = board[row][index]
                 if(nextRight>2 or nextRight<1):
                     break
                 if(nextRight!= rightPivot):
@@ -44,10 +46,10 @@ def checkavi(row,col):
     if( col > 0 ):
         # print("checking leftward")
 
-        leftPivot = a[row][col-1]
+        leftPivot = board[row][col-1]
         if(leftPivot >0 and leftPivot<3):
             for index in range(col-1 ,0,-1):
-                nextLeft = a[row][index]
+                nextLeft = board[row][index]
                 if(nextLeft>2 or nextLeft <1):
                     break
 
@@ -67,12 +69,12 @@ def checkavi(row,col):
         # print(row)
         # print(col)
         # print(height)
-        # print(a[row][col])
+        # print(board[row][col])
         # if( row < height-1):
-        downPivot = a[row+1][col]
+        downPivot = board[row+1][col]
         if(downPivot > 0 and downPivot <3):
             for index in range(row+1, height):
-                nextDown = a[index][col]
+                nextDown = board[index][col]
 
                 # print("in loop, index col is {}, next down is {}".format(index, nextDown))
                 if(nextDown>2 or nextDown<1):
@@ -89,10 +91,10 @@ def checkavi(row,col):
         # print("checking upward")
 
         # if(row > 0 ):
-        upPivot = a[row-1][col]
+        upPivot = board[row-1][col]
         if(upPivot > 0 and upPivot < 3 ):
             for index in range(row-1,0,-1):
-                nextUp  = a[index][col]
+                nextUp  = board[index][col]
                 if(nextUp>2 or nextUp <1):
                     break
                 # print("index is {}, the up pivot is {}, and nextUp is {}".format(index, upPivot, nextUp))
@@ -126,20 +128,3 @@ def checkavi(row,col):
 
 # print(checkavi(0,0))
 # print(checkavi(4,2))
-errorMessage = []
-
-for row in range(0,len(a)):
-    for col in range(0,len(a[0])):
-        try:
-            if(a[row][col] <1):
-                print(checkavi(row,col),end = '\t')
-            else:
-                print(a[row][col],end = '\t')
-        except Exception as e:
-            print("x",end = '\t')
-            errorMessage.append("in row {} col {}, the error message was {}".format(row,col,e))
-    print()
-
-# checkavi(1,5)
-for i in (errorMessage):
-    print(i)
