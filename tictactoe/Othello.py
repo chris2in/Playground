@@ -17,8 +17,9 @@ numPerRowCol = 8
 
 symbolBlack = '#000000'
 symbolWhite = '#FFFFFF'
-symbolAVIWhite= '#0ABAB5'
-symbolAVIBlack = '#ff0000'
+symbolAVIWhite= '#CCFFFF'
+symbolAVIBlack = '#FFCCCC'
+symbolAVIBoth = '#FFFFCC'
 symbol_thickness= 5
 DEBUGTEST = True
 
@@ -255,12 +256,13 @@ class Othello():
                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolWhite)
                     elif(valueOfGrid ==2):
                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolBlack)
-                    elif((valueOfGrid == 3 or valueOfGrid==5) and not self.Black_turns):
+                    elif(valueOfGrid == 3  and not self.Black_turns):
                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIWhite)
-                    elif((valueOfGrid == 4 or valueOfGrid==5) and self.Black_turns):
+                    elif(valueOfGrid == 4  and self.Black_turns):
                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBlack)
-                    
-                        
+                    elif((valueOfGrid == 5)):
+                        self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBoth)
+
 
 
                 
