@@ -34,10 +34,10 @@ def checkavi(board, row,col):
                     break
                 if(nextRight!= rightPivot):
                     if(rightPivot == 2):
-                        blackAvi = True
+                        whiteAvi = True
                         break
                     else:
-                        whiteAvi = True
+                        blackAvi = True
                         break
 
 
@@ -55,10 +55,10 @@ def checkavi(board, row,col):
 
                 if(nextLeft != leftPivot):
                     if(leftPivot == 2):
-                        blackAvi = True
+                        whiteAvi = True
                         break
                     else:
-                        whiteAvi = True
+                        blackAvi = True
                         break
 
     #   checking downward
@@ -81,10 +81,10 @@ def checkavi(board, row,col):
                     break
                 if( nextDown != downPivot):
                     if(downPivot == 2):
-                        blackAvi = True
+                        whiteAvi = True
                         break
                     else:
-                        whiteAvi = True
+                        blackAvi = True
                         break
     #   checking upward 
     if( not ( whiteAvi and blackAvi)  and row>0):
@@ -101,11 +101,11 @@ def checkavi(board, row,col):
                 if(nextUp != upPivot ):
 
                     if(upPivot ==2):
-                        blackAvi = True
+                        whiteAvi = True
                         
                         break
                     else:
-                        whiteAvi = True
+                        blackAvi = True
                         break
                         
     
@@ -118,9 +118,9 @@ def checkavi(board, row,col):
             if(whiteAvi):
                 return 5
             else:
-                return  3
+                return  4
     elif(whiteAvi):
-        return 4
+        return 3
     else:
         return 0
 
