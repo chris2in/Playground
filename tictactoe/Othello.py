@@ -262,6 +262,8 @@ class Othello():
                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBlack)
                     elif((valueOfGrid == 5)):
                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBoth)
+                    else:
+                        self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolWhite,fill=symbolWhite)
 
 
 
