@@ -20,8 +20,8 @@ symbolWhite = '#FFFFFF'
 symbolAVIWhite= '#CCFFFF'
 symbolAVIBlack = '#FFCCCC'
 symbolAVIBoth = '#FFFFCC'
-symbol_thickness= 5
-DEBUGTEST = True
+symbol_thickness= 2
+DEBUGTEST = False
 
 class Othello():
     
@@ -30,7 +30,7 @@ class Othello():
         # self.window.attributes('-fullscreen',True)
         self.window.title("Try Othelowsomehting")
 
-        self.canvas = Canvas(self.window, width= size_of_board,height=size_of_board)
+        self.canvas = Canvas(self.window, width= size_of_board,height=size_of_board,bg = 'lightgray')
         self.canvas.pack()
 
         self.window.bind('<Button-1>',self.click)
@@ -44,6 +44,8 @@ class Othello():
         self.board[4][4] =1
         self.board[3][4] =2
         self.board[4][3] =2
+        self.generateAviSpot()
+        
         self.render()
         # print(self.board)
         # for i in range(len(self.board)):
@@ -98,18 +100,21 @@ class Othello():
         x=Grid[0]-1
         y=Grid[1]-1
         
-        if(self.board[x][y] != 0 and self.board[x][y] != 3 and self.board[x][y] !=4):
+        if(self.board[x][y] > 0 and self.board[x][y]<3):
             print("cant do so, it s already ",self.board[x][y])
-        else:    
-            if(self.Black_turns):
-                #place a black piece
-                #which will be mark as 2
-                self.refreshBoard(x,y,2)
-                self.board[x][y] = 2
-            else:
-                self.board[x][y]=1
-                self.refreshBoard(x,y,1)
+        elif(self.board[x][y]==0):
+            print("not available")
+        elif((self.board[x][y] == 5 or self.board[x][y] == 3) and not self.Black_turns):
+            self.board[x][y] = 1
             self.Black_turns = not self.Black_turns
+
+        elif((self.board[x][y] == 5 or self.board[x][y] == 4) and self.Black_turns):
+            self.board[x][y] = 2
+            self.Black_turns = not self.Black_turns
+
+        else:    
+            print("?")
+        
             
         if(DEBUGTEST):
             print('beginning of this turn')
@@ -137,86 +142,86 @@ class Othello():
 
         return 0
 
-    def checkAvi(self,i,o):
-        blackAvi = False
-        whiteAvi = False
+    '''# def checkAvi(self,i,o):
+    #     blackAvi = False
+    #     whiteAvi = False
 
         
 
-        if (i == 0 ):
+    #     if (i == 0 ):
 
-            #   when checking the top left corner 
-            if(o == 0):
+    #         #   when checking the top left corner 
+    #         if(o == 0):
 
-                if(self.board[0][1]>0 and self.board[0][1]< 3):
-                    nextSpot = self.board[0][1]
-                #   checking right-direction 
+    #             if(self.board[0][1]>0 and self.board[0][1]< 3):
+    #                 nextSpot = self.board[0][1]
+    #             #   checking right-direction 
 
-                    # there are six more spot to check 
-                    for col in range(6):
+    #                 # there are six more spot to check 
+    #                 for col in range(6):
 
-                        #   need fix here
-                        #   no point always getting first 6
-                        #   need to make it dynamic 
-                        #   let s start working on different cases and automatic tests
-                        #   in python where reads array for test
+    #                     #   need fix here
+    #                     #   no point always getting first 6
+    #                     #   need to make it dynamic 
+    #                     #   let s start working on different cases and automatic tests
+    #                     #   in python where reads array for test
 
 
 
-                        #   if next one to [0][1] is same, continue until finding the different color one, then set Avi
-                        #       otherwise, nothing happens 
-                        # print (type(self.board[0][col]))
-                        # print("TTT", col)
-                        # print(self.board[0][col])
-                        if int(self.board[0][col]) > 0 and int(self.board[0][col])<3 and nextSpot != self.board[0][col]:
-                            if(nextSpot==1):
-                                if (DEBUGTEST):
-                                    print("black avi")
-                                blackAvi=True
-                                break
-                            else:
-                                if (DEBUGTEST):
-                                    print("white avi 1")
-                                whiteAvi=True
-                                break
-                            if(blackAvi and whiteAvi):
-                                break
+    #                     #   if next one to [0][1] is same, continue until finding the different color one, then set Avi
+    #                     #       otherwise, nothing happens 
+    #                     # print (type(self.board[0][col]))
+    #                     # print("TTT", col)
+    #                     # print(self.board[0][col])
+    #                     if int(self.board[0][col]) > 0 and int(self.board[0][col])<3 and nextSpot != self.board[0][col]:
+    #                         if(nextSpot==1):
+    #                             if (DEBUGTEST):
+    #                                 print("black avi")
+    #                             blackAvi=True
+    #                             break
+    #                         else:
+    #                             if (DEBUGTEST):
+    #                                 print("white avi 1")
+    #                             whiteAvi=True
+    #                             break
+    #                         if(blackAvi and whiteAvi):
+    #                             break
                     
-                    if(not ( blackAvi and whiteAvi)):
-                        downSpot = self.board[1][0]
-                        for row in range(6):
-                            if self.board[row][0] >0 and self.board[row][0]<3 and  downSpot !=self.board[row][0]:
+    #                 if(not ( blackAvi and whiteAvi)):
+    #                     downSpot = self.board[1][0]
+    #                     for row in range(6):
+    #                         if self.board[row][0] >0 and self.board[row][0]<3 and  downSpot !=self.board[row][0]:
                             
-                                if(not blackAvi and downSpot==1):
-                                    if (DEBUGTEST):
-                                        print("black avi")
-                                    blackAvi =True
-                                    break
-                                elif(not whiteAvi and downSpot==2):
-                                    if (DEBUGTEST):
-                                        print("white avi 2")
-                                    whiteAvi = True
-                                    break
+    #                             if(not blackAvi and downSpot==1):
+    #                                 if (DEBUGTEST):
+    #                                     print("black avi")
+    #                                 blackAvi =True
+    #                                 break
+    #                             elif(not whiteAvi and downSpot==2):
+    #                                 if (DEBUGTEST):
+    #                                     print("white avi 2")
+    #                                 whiteAvi = True
+    #                                 break
                                 
 
                 
                                     
-            elif(o==7):
-                return 0
-            else:
-                return 0
+    #         elif(o==7):
+    #             return 0
+    #         else:
+    #             return 0
 
-        elif(i == 7):
-            return 0
-        else:
-            return 0 
-        if(blackAvi):
-            if(whiteAvi):
-                self.board[i][o]= 5
-            else:
-                self.board[i][o]= 3
-        elif(whiteAvi):
-            self.board[i][o]=4
+    #     elif(i == 7):
+    #         return 0
+    #     else:
+    #         return 0 
+    #     if(blackAvi):
+    #         if(whiteAvi):
+    #             self.board[i][o]= 5
+    #         else:
+    #             self.board[i][o]= 3
+    #     elif(whiteAvi):
+    #         self.board[i][o]=4
 
 
         #   run test here, to see if 0,0 will update according to pieces on the right and below,
@@ -229,7 +234,7 @@ class Othello():
         #   case seven: 1,1
         #   pass the case with 5
         
-        
+        '''
 
         
 
@@ -246,24 +251,24 @@ class Othello():
 
                 x=Cord[0]
                 y=Cord[1]
+                x1 = x+size_of_board/numPerRowCol -5
+                y1 =y+size_of_board/numPerRowCol -5
                 valueOfGrid = self.board[i][o]
                 if(valueOfGrid!=0):
                     # print('x',x)
                     # print('y',y)
                     if(valueOfGrid==1):
 
-                        
-                        self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolWhite)
+                        self.canvas.create_oval(x+5,y+5,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolWhite)
                     elif(valueOfGrid ==2):
-                        self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolBlack)
-                    elif(valueOfGrid == 3  and not self.Black_turns):
-                        self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIWhite)
-                    elif(valueOfGrid == 4  and self.Black_turns):
-                        self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBlack)
-                    elif((valueOfGrid == 5)):
-                        self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBoth)
+                        self.canvas.create_oval(x+5,y+5,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolBlack)
+                    elif((valueOfGrid == 3  and not self.Black_turns) or valueOfGrid ==5):
+                        self.canvas.create_oval(x+5,y+5,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIWhite)
+                    elif((valueOfGrid == 4  and self.Black_turns)or valueOfGrid ==5):
+                        self.canvas.create_oval(x+5,y+5,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBlack)
                     else:
-                        self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolWhite,fill=symbolWhite)
+                        self.canvas.create_oval(x+3,y+3,x1+2,y1+2,width=symbol_thickness,outline="#d3d3d3",fill="#d3d3d3")
+
 
 
 
@@ -316,7 +321,7 @@ class Othello():
     def mainloop(self):
         self.window.mainloop()
 
-print("S")
+# print("S")
 # checkAviTest.checkavi()
 
 game = Othello()
