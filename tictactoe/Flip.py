@@ -33,6 +33,10 @@ def flip(board,row,col,piece):
     board[row][col]= piece
     
 
+    if( col < widthMAX -1 ) :
+        nextRight = board[row][col+1]
+        for index in range(col, widthMAX):
+            print(board[row][index])
     '''
     #   checking rightward
     if(col < widthMAX-1):
