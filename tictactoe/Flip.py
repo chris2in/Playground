@@ -1,3 +1,6 @@
+from distutils.debug import DEBUG
+
+
 a= [
     [0,1,2,1,2],
     [0,0,0,0,0],
@@ -8,10 +11,10 @@ a= [
 
 b = [
     [0,1,1,1,2],
-    [1,2,0,2,1],
-    [1,2,2,2,0],
-    [0,1,1,1,0],
-    [2,1,2,1,1]
+    [1,1,0,2,1],
+    [1,0,1,1,1],
+    [0,1,2,1,0],
+    [2,0,1,1,1]
 
 
 ]
@@ -29,6 +32,8 @@ def flip(board,row,col,piece):
     # anchor = piece
     board[row][col]= piece
     
+
+    '''
     #   checking rightward
     if(col < widthMAX-1):
         # nextRight = board[row][col]
@@ -66,7 +71,7 @@ def flip(board,row,col,piece):
         if(DEBUGTEST):
             print("left has {} flip".format(directionScore))
     
-    #   checking upward
+    #   checking downward
     if(row < heightMAX):
         nextDown = board[row+1][col ]
         directionScore = 0 
@@ -83,7 +88,26 @@ def flip(board,row,col,piece):
         if(DEBUGTEST):
             print("down has {} flip".format(directionScore))
 
-            
+    #   checking upward
+    if(row>= 0 ):
+        nextUp = board[ row-1][col]
+        directionScore = 0 
+        if( nextUp > 0 and nextUp <3 and nextUp != piece):
+            for index in range(row -1, 0 , -1):
+                if(board[index][col] == piece):
+                    break
+                else:
+                    print("the row {} and col {} is {}".format(index,col,board[index][col]))
+                    directionScore +=1
+                
+                
+            for index in range(1, directionScore+1):
+                board[row-index][col] = piece
+        score += directionScore 
+
+        if(True):
+            print("up has {} flip".format(directionScore))
+       '''     
 
     print(score)
 
@@ -92,7 +116,7 @@ def flip(board,row,col,piece):
 
     return score 
 
-flip(b,1,2,1)
+flip(b,2,1,2)
 
 
 
