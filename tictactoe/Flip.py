@@ -1,4 +1,4 @@
-from distutils.debug import DEBUG
+
 
 
 a= [
@@ -10,14 +10,31 @@ a= [
 ]
 
 b = [
-    [0,1,1,1,2],
-    [1,1,0,2,1],
-    [1,0,1,1,1],
+    [0,0,1,1,2],
+    [1,1,0,2,0],
+    [2,1,0,1,2],
     [0,1,2,1,0],
     [2,0,1,1,1]
 
 
 ]
+
+
+c = [
+    [0,1,1,1,2],
+    [0,1,1,2,0],
+    [0,1,1,1,1],
+    [0,1,0,0,0],
+    [0,2],
+    [0,0,1,1,2],
+    [0,0,0,1,2],
+    [0,0,0,1,1],
+    [0,0,0,2,2]
+
+
+
+]
+
 DEBUGTEST = True
 
 def flip(board,row,col,piece):
@@ -32,11 +49,42 @@ def flip(board,row,col,piece):
     # anchor = piece
     board[row][col]= piece
     
-
+    # endWell =False
     if( col < widthMAX -1 ) :
-        nextRight = board[row][col+1]
-        for index in range(col, widthMAX):
-            print(board[row][index])
+        
+        
+        #   list to traverse
+        traverseList = board[row][col+1:]
+        directionFlip = 0 
+        # print("start checkign right ")
+        for i in traverseList:
+            if( i> 0 and i < 3 and i != piece):
+                # print("one pass, next one")
+                directionFlip +=1
+                
+            else:
+                # print("stopped")
+                if(i == piece):
+                    # print("we get to flip some")
+                    for index in range(directionFlip):
+                        board[row][col+index+1] = piece
+                    score += directionFlip
+                
+    if( col > 1):
+        traverseList = board[row][0:col]
+        traverseList.reverse()
+        directionFlip = 0
+        # print("reverse list is {}".format(traverseList))
+        for i in traverseList:
+            if( i > 0 and i < 3 and i != piece):
+                directionFlip +=1
+            else:
+                if( i == piece):
+                    for index in range(directionFlip):
+                        board[row][col-index-1] = piece
+                    score  += directionFlip
+
+
     '''
     #   checking rightward
     if(col < widthMAX-1):
@@ -120,8 +168,16 @@ def flip(board,row,col,piece):
 
     return score 
 
-flip(b,2,1,2)
+# flip(b,2,2,2)
 
+# for i in range(len(c)):
+#     flip(c,i,0,2)
+
+# print( )
+flip(c,5,1,2)
+flip(c,6,2,2)
+flip(c,7,2,2)
+flip(c,8,0,2)
 
 
 
@@ -129,7 +185,7 @@ flip(b,2,1,2)
 # for i in range(len(a[1])):
 #     print( flip(a,1,i))
 
-for i in b:
+for i in c:
     for o in i:
         print(o, end = ' ')
     print()
