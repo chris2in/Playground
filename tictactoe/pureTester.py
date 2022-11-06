@@ -13,3 +13,7 @@ a= [1,2,3,4,5,6,7]
 c = (a[0:3])
 c.reverse()
 print(c)
+
+
+for i in range(9,1,-1):
+    print(i)

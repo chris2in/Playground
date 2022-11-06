@@ -2,11 +2,11 @@
 
 
 a= [
-    [0,1,2,1,2],
+    [0,2,2,1,2],
+    [0,0,1,1,2],
+    [0,0,0,1,2],
     [0,0,0,0,0],
-    [0,1,2,1,2],
-    [0,2,1,1,2],
-    [0,1,1,2,1]
+    [0,0,0,0,0]
 ]
 
 b = [
@@ -25,7 +25,6 @@ c = [
     [0,1,1,2,0],
     [0,1,1,1,1],
     [0,1,0,0,0],
-    [0,2],
     [0,0,1,1,2],
     [0,0,0,1,2],
     [0,0,0,1,1],
@@ -104,23 +103,31 @@ def flip(board,row,col,piece):
                         board[row][col-index-1] = piece
                     score  += directionFlip
 
-    if( row > 1 ):
+    if(row > 1 ):
         traverseList = []
-        for i in range( row-1,-1,-1):
+        for i in range(row-1,-1,-1):
             traverseList.append(board[i][col])
-        print(traverseList)
-        directionFlip = 0
         for i in traverseList:
             if( i > 0 and i < 3 and i != piece):
                 directionFlip +=1
             else:
                 if( i == piece):
-                    print("direction flip is {}".format(directionFlip))
+                    for index in range(directionFlip):
+                        board[row+index+1][col] = piece
+                    score  += directionFlip
+    
+    if( row < heightMAX -1):
+        traverseList = []
+        for i in range(0,row):
+            traverseList.append(board[i][col])
+        for i in traverseList:
+            if( i > 0 and i < 3 and i != piece):
+                directionFlip +=1
+            else:
+                if( i == piece):
                     for index in range(directionFlip):
                         board[row-index-1][col] = piece
                     score  += directionFlip
-
-
 
 
     '''
@@ -211,12 +218,32 @@ def flip(board,row,col,piece):
 # for i in range(len(c)):
 #     flip(c,i,0,2)
 
-# # print( )
-
+# print( )
 # flip(c,5,1,2)
 # flip(c,6,2,2)
 # flip(c,7,2,2)
-# flip(c,8,0,2)
+# flip(c,2,0,1)
+
+flip(a,0,0,1)
+
+for i in a:
+    for o in i:
+        print(o, end = ' ')
+    print()
+
+    
+flip(a,1,1,2)
+for i in a:
+    for o in i:
+        print(o, end = ' ')
+    print()
+    
+flip(a,2,2,2)
+for i in a:
+    for o in i:
+        print(o, end = ' ')
+    print()
+ 
 
 flip(d,4,0,2)
 flip(d,4,1,2)
