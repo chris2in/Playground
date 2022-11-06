@@ -261,6 +261,17 @@ class Othello():
 
                         self.canvas.create_oval(x+5,y+5,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolWhite)
                     elif(valueOfGrid ==2):
+# <<<<<<< HEAD
+                        self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolBlack)
+#                     elif(valueOfGrid == 3  and not self.Black_turns):
+#                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIWhite)
+#                     elif(valueOfGrid == 4  and self.Black_turns):
+#                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBlack)
+#                     elif((valueOfGrid == 5)):
+#                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBoth)
+#                     else:
+#                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolWhite,fill=symbolWhite)
+# =======
                         self.canvas.create_oval(x+5,y+5,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolBlack)
                     elif((valueOfGrid == 3  and not self.Black_turns) or valueOfGrid ==5):
                         self.canvas.create_oval(x+5,y+5,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIWhite)
@@ -268,7 +279,7 @@ class Othello():
                         self.canvas.create_oval(x+5,y+5,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBlack)
                     else:
                         self.canvas.create_oval(x+3,y+3,x1+2,y1+2,width=symbol_thickness,outline="#d3d3d3",fill="#d3d3d3")
-
+# >>>>>>> ac2764da1b587f55a1c307079982541c33f8ddc1
 
 
 

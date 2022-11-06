@@ -35,6 +35,26 @@ c = [
 
 ]
 
+
+d = [
+    [0,0,0,0,0],
+    [1,1,0,0,0],
+    [1,1,1,1,2],
+    [1,1,1,1,0],
+    [1,2,1,2,0],
+    [2,0,1,1,0],
+]
+
+d = [
+    [2,0,0,0,2],
+    [1,2,0,0,2],
+    [1,1,1,0,1],
+    [1,1,1,2,0],
+    [0,0,0,0,0],
+
+]
+
+
 DEBUGTEST = True
 
 def flip(board,row,col,piece):
@@ -83,6 +103,24 @@ def flip(board,row,col,piece):
                     for index in range(directionFlip):
                         board[row][col-index-1] = piece
                     score  += directionFlip
+
+    if( row > 1 ):
+        traverseList = []
+        for i in range( row-1,-1,-1):
+            traverseList.append(board[i][col])
+        print(traverseList)
+        directionFlip = 0
+        for i in traverseList:
+            if( i > 0 and i < 3 and i != piece):
+                directionFlip +=1
+            else:
+                if( i == piece):
+                    print("direction flip is {}".format(directionFlip))
+                    for index in range(directionFlip):
+                        board[row-index-1][col] = piece
+                    score  += directionFlip
+
+
 
 
     '''
@@ -173,19 +211,24 @@ def flip(board,row,col,piece):
 # for i in range(len(c)):
 #     flip(c,i,0,2)
 
-# print( )
-flip(c,5,1,2)
-flip(c,6,2,2)
-flip(c,7,2,2)
-flip(c,8,0,2)
+# # print( )
 
+# flip(c,5,1,2)
+# flip(c,6,2,2)
+# flip(c,7,2,2)
+# flip(c,8,0,2)
 
+flip(d,4,0,2)
+flip(d,4,1,2)
+flip(d,4,2,2)
+flip(d,4,3,2)
+flip(d,3,4,2)
 
 
 # for i in range(len(a[1])):
 #     print( flip(a,1,i))
 
-for i in c:
+for i in d:
     for o in i:
         print(o, end = ' ')
     print()
