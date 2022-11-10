@@ -170,18 +170,17 @@ def flip(board,row,col,piece):
 
     return score 
 
-# flip(b,2,2,2)
-
-# for i in range(len(c)):
-#     flip(c,i,0,2)
-
-# print( )
-# flip(c,5,1,2)
-# flip(c,6,2,2)
-# flip(c,7,2,2)
-# flip(c,2,0,1)
 
 flip(a,0,0,1)
+flip(a,1,1,1)
+flip(a,2,3,2)
+
+for i in range(len(a)):
+    for o in range(i):
+        print(a[i][o],end="\t")
+    print()
+
+
 
 
 
