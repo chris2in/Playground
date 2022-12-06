@@ -4,7 +4,7 @@
 a= [
     [0,2,2,1,2],
     [0,0,1,1,2],
-    [0,0,0,1,2],
+    [2,1,0,1,2],
     [0,0,0,0,0],
     [0,0,0,0,0]
 ]
@@ -27,8 +27,6 @@ def flip(board,row,col,piece):
     
     # endWell =False
     if( col < widthMAX -1 ) :
-        
-        
         #   list to traverse
         traverseList = board[row][col+1:]
         directionFlip = 0 
@@ -59,8 +57,10 @@ def flip(board,row,col,piece):
                     for index in range(directionFlip):
                         board[row][col-index-1] = piece
                     score  += directionFlip
-
+    print(score,'step 2')
     if(row > 1 ):
+        directionFlip = 0
+
         traverseList = []
         for i in range(row-1,-1,-1):
             traverseList.append(board[i][col])
@@ -72,11 +72,15 @@ def flip(board,row,col,piece):
                     for index in range(directionFlip):
                         board[row+index+1][col] = piece
                     score  += directionFlip
+    print(score,'step 3')
     
     if( row < heightMAX -1):
+        directionFlip = 0
+
         traverseList = []
         for i in range(0,row):
-            traverseList.append(board[i][col])
+            traverseList.append(board[row+i][col])
+        
         for i in traverseList:
             if( i > 0 and i < 3 and i != piece):
                 directionFlip +=1
@@ -85,6 +89,7 @@ def flip(board,row,col,piece):
                     for index in range(directionFlip):
                         board[row-index-1][col] = piece
                     score  += directionFlip
+    print(score,'step 4')
 
 
     '''
@@ -171,12 +176,10 @@ def flip(board,row,col,piece):
     return score 
 
 
-flip(a,0,0,1)
-flip(a,1,1,1)
-flip(a,2,3,2)
+flip(a,2,2,2)
 
 for i in range(len(a)):
-    for o in range(i):
+    for o in range(len(a[i])):
         print(a[i][o],end="\t")
     print()
 
