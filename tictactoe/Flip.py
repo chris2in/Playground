@@ -58,6 +58,10 @@ def flip(board,row,col,piece):
                         board[row][col-index-1] = piece
                     score  += directionFlip
     print(score,'step 2')
+    for i in range(len(board)):
+        for o in range(len(board[i])):
+            print(board[i][o],end="\t")
+    print()
     if(row > 1 ):
         directionFlip = 0
 
@@ -73,7 +77,10 @@ def flip(board,row,col,piece):
                         board[row+index+1][col] = piece
                     score  += directionFlip
     print(score,'step 3')
-    
+    for i in range(len(board)):
+        for o in range(len(board[i])):
+            print(board[i][o],end="\t")
+    print()
     if( row < heightMAX -1):
         directionFlip = 0
 
