@@ -57,6 +57,86 @@ class Othello():
         self.availableForWhite = True
         self.availableForBlack = True
         
+    def flip(board,row,col,piece):
+        #takes in the 2d array board, x, and y
+        #   returns the udpated board 
+
+        score = 0
+        # board [0][0] = 20
+        widthMAX  = len(board[0])
+        heightMAX = len(board)-1
+
+        # anchor = piece
+        board[row][col]= piece
+        
+        # endWell =False
+        if( col < widthMAX -1 ) :
+            #   list to traverse
+            traverseList = board[row][col+1:]
+            directionFlip = 0 
+            # print("start checkign right ")
+            for i in traverseList:
+                if( i> 0 and i < 3 and i != piece):
+                    # print("one pass, next one")
+                    directionFlip +=1
+                    
+                else:
+                    # print("stopped")
+                    if(i == piece):
+                        # print("we get to flip some")
+                        for index in range(directionFlip):
+                            board[row][col+index+1] = piece
+                        score += directionFlip
+        
+        if( col > 1):
+            traverseList = board[row][0:col]
+            traverseList.reverse()
+            directionFlip = 0
+            # print("reverse list is {}".format(traverseList))
+            for i in traverseList:
+                if( i > 0 and i < 3 and i != piece):
+                    directionFlip +=1
+                else:
+                    if( i == piece):
+                        for index in range(directionFlip):
+                            board[row][col-index-1] = piece
+                        score  += directionFlip
+        
+
+        if(row > 1 ):
+            directionFlip = 0
+
+            traverseList = []
+            for i in range(row-1,-1,-1):
+                traverseList.append(board[i][col])
+            for i in traverseList:
+                if( i > 0 and i < 3 and i != piece):
+                    directionFlip +=1
+                else:
+
+                    if( i == piece):
+                        for index in range(directionFlip):
+                            board[row-index-1][col] = piece
+                        print("fliping {},{} to {}".format(row+index+1,col,piece))
+                        score  += directionFlip
+        
+        if( row < heightMAX -1):
+            directionFlip = 0
+
+            traverseList = []
+            for i in range(0,row+1):
+                traverseList.append(board[row+i+1][col])
+            print(traverseList)
+
+            for i in traverseList:
+                if( i > 0 and i < 3 and i != piece):
+                    directionFlip +=1
+                else:
+                    if( i == piece):
+                        for index in range(directionFlip):
+                            board[row+index+1][col] = piece
+                        score  += directionFlip
+        return score 
 
 
     def isGameOver(self):
