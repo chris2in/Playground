@@ -3,11 +3,11 @@ from tkinter import E
 from turtle import left
 
 
-a = [[0,2,2,2,2,2,2,2,1],
-     [1,0,1,0,1,0,0,1,0],
-     [2,0,1,0,0,2,0,0,0],
-     [0,0,1,2,0,0,2,2,1],
-     [0,0,0,2,2,1,0,1,0]
+a = [[0,0,0,0,0],
+     [0,0,2,0,0],
+     [0,0,2,2,0],
+     [0,0,2,1,0],
+     [0,0,0,0,0]
      ]
 
 
@@ -125,6 +125,9 @@ def checkavi(board, row,col):
         return 0
 
 
-
-# print(checkavi(0,0))
+for i in range(len(a)):
+    for o in range(len(a[i])):
+        print(checkavi(a,i,o),end = "\t ")
+    print()
+# print(checkavi(a,0,0))
 # print(checkavi(4,2))

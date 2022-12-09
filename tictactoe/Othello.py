@@ -21,7 +21,7 @@ symbolAVIWhite= '#CCFFFF'
 symbolAVIBlack = '#FFCCCC'
 symbolAVIBoth = '#FFFFCC'
 symbol_thickness= 2
-DEBUGTEST = False
+DEBUGTEST = True
 
 class Othello():
     
@@ -57,7 +57,7 @@ class Othello():
         self.availableForWhite = True
         self.availableForBlack = True
         
-    def flip(board,row,col,piece):
+    def flip(self,board,row,col,piece):
         #takes in the 2d array board, x, and y
         #   returns the udpated board 
 
@@ -185,11 +185,14 @@ class Othello():
         elif(self.board[x][y]==0):
             print("not available")
         elif((self.board[x][y] == 5 or self.board[x][y] == 3) and not self.Black_turns):
-            self.board[x][y] = 1
+            # self.board[x][y] = 1
+            self.flip(self.board,x,y,1)
+
             self.Black_turns = not self.Black_turns
 
         elif((self.board[x][y] == 5 or self.board[x][y] == 4) and self.Black_turns):
-            self.board[x][y] = 2
+            # self.board[x][y] = 2
+            self.flip(self.board,x,y,2)
             self.Black_turns = not self.Black_turns
 
         else:    
@@ -335,31 +338,18 @@ class Othello():
                 y1 =y+size_of_board/numPerRowCol -5
                 valueOfGrid = self.board[i][o]
                 if(valueOfGrid!=0):
-                    # print('x',x)
-                    # print('y',y)
+                    
                     if(valueOfGrid==1):
-
                         self.canvas.create_oval(x+5,y+5,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolWhite)
                     elif(valueOfGrid ==2):
-# <<<<<<< HEAD
-                        self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolBlack)
-#                     elif(valueOfGrid == 3  and not self.Black_turns):
-#                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIWhite)
-#                     elif(valueOfGrid == 4  and self.Black_turns):
-#                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBlack)
-#                     elif((valueOfGrid == 5)):
-#                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBoth)
-#                     else:
-#                         self.canvas.create_oval(x,y,x+size_of_board/numPerRowCol,y+size_of_board/numPerRowCol,width=symbol_thickness,outline=symbolWhite,fill=symbolWhite)
-# =======
-                        self.canvas.create_oval(x+5,y+5,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolBlack)
+                        self.canvas.create_oval(x+3,y+3,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolBlack)
                     elif((valueOfGrid == 3  and not self.Black_turns) or valueOfGrid ==5):
-                        self.canvas.create_oval(x+5,y+5,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIWhite)
+                        self.canvas.create_oval(x+3,y+3,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIWhite)
                     elif((valueOfGrid == 4  and self.Black_turns)or valueOfGrid ==5):
-                        self.canvas.create_oval(x+5,y+5,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBlack)
+                        self.canvas.create_oval(x+3,y+3,x1,y1,width=symbol_thickness,outline=symbolBlack,fill=symbolAVIBlack)
                     else:
                         self.canvas.create_oval(x+3,y+3,x1+2,y1+2,width=symbol_thickness,outline="#d3d3d3",fill="#d3d3d3")
-# >>>>>>> ac2764da1b587f55a1c307079982541c33f8ddc1
+
 
 
 
