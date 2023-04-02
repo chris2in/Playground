@@ -7,8 +7,9 @@ import checkAviTest
 
 
 size_of_board= 800
-symbol_size= (size_of_board/8 - size_of_board/8)/2
 numPerRowCol = 8
+symbol_size= (size_of_board/numPerRowCol - size_of_board/numPerRowCol)/2
+
 #   1 for white
 #   2 for black
 #   3 for available for white
