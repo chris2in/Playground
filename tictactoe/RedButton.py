@@ -32,8 +32,7 @@ class Othello():
     def changeColor(self,shape):
         
         self.canvas.itemconfig(shape,fill='green')
-
-
+        # print()
 
     def click(self, event):
         self.changeColor(self.firstSquare)
