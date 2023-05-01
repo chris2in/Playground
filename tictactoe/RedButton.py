@@ -59,18 +59,27 @@ class Othello():
 
             for o in range(numPerRowCol):
                 indicator = i*8+o
-                self.Square[i].append(self.canvas.create_rectangle(indicator%numPerRowCol*length,indicator//numPerRowCol*length,indicator%numPerRowCol*length+length,indicator//numPerRowCol*length+length))
+                self.Square[i].append(self.canvas.create_rectangle(indicator%numPerRowCol*length,indicator//numPerRowCol*length,indicator%numPerRowCol*length+length,indicator//numPerRowCol*length+length, outline='dark gray'))
                 self.Board[i].append(0)
             print(self.Board)
 
 
         self.canvas.itemconfig(self.Square[3][3],fill = 'white')
+        self.Board[3][3] = 2
         self.canvas.itemconfig(self.Square[4][4],fill = 'white')
+        self.Board[4][4] = 2
 
         self.canvas.itemconfig(self.Square[3][4],fill = 'black')
+        self.Board[3][4] = 1
+        
         self.canvas.itemconfig(self.Square[4][3],fill = 'black')
+        self.Board[4][3] = 1
         # self.placeMove(3,3,"white")
 
+        print("going to start update")
+        self.updateAvilableMove()
+        print('update finished')
+        
 
 
         # 27 while
@@ -89,11 +98,20 @@ class Othello():
         print(self.Square)
     
     def placeMove(self,x,y,color):
-        if(self.Board[x][y]==5  or  (self.Board[x][y] == 3 and color =='black') or (self.Board[x][y] ==4 and color == 'white'))
-            self.flip(x,y,color)
+        # if(self.Board[x][y]==5  or  (self.Board[x][y] == 3 and color =='black') or (self.Board[x][y] ==4 and color == 'white')):
+        #     self.flip(x,y,color)
+        # else:
+        #     return 
+        self.canvas.itemconfig( self.Square[x][y],fill=color)
+        if(color == 'black'):
+            self.Board[x][y] = 1
         else:
-            return 
+            self.Board[x][y] = 2
+
         
+        return 
+
+
         # self.Board[x][y] 
     #   work point 3: do we still need this method? 
 
@@ -111,12 +129,114 @@ class Othello():
 
 
     def updateAvilableMove(self):
-        for i in self.Board:
-            for o in i:
-                return
+        #   this go over all the row number
+
+        for row in len(self.Board):
+
+            #   create temp row holder to save access time 
+            tempRow = self.Board[row]
+            
+            for col in len(tempRow):
+                #   this go over all the element in a row
+                if (not(self.board[row][col] ==1 or self.Board[row][col]==2)):
+                    directions = []
+
+                    if(row == 0):
+                        directions.append('right')
+                    elif(row == numPerRowCol-1):
+                        directions.append('left')
+                    else:
+                        directions.append('left')
+                        directions.append('right')
+                    if(col == 0):
+                        directions.append('down')
+                    elif(col == numPerRowCol-1):
+                        directions.append('up')
+                    else:
+                        directions.append('up')
+                        directions.append('down')
+                self.checkAvailbity(row,col,directions)
+
+
+        return 
+    
+
+
 
         
     #   work point 1: update 3,4,5 indicated available moves for each part of the board
+
+    def checkAvailbity(self,row,col,directions):
+        black = False
+        white = False
+
+        
+        for i in directions:
+            if(i == 'up'):
+                back = self.Board[row+1][col]
+                if(back ==1 or back ==2):
+                    if(self.Board[row-1][col] ==back):
+                        return
+                    else:
+                        if(back == 2):
+                            white = True
+                        else:
+                            black = True
+
+
+            elif(i == 'down'):
+                back = self.Board[row-1][col]
+                if(back ==1 or back ==2):
+                    if(self.Board[row+1][col] ==back):
+                        return
+                    else:
+                        if(back == 2):
+                            white = True
+                        else:
+                            black = True
+                    if(black and white):
+                        self.Board[row][col] = 5
+                        return 
+            elif( i == 'left'):
+                back = self.Board[row][col+1]
+                if(back ==1 or back ==2):
+                    if(self.Board[row-1][col] ==back):
+                        return
+                    else:
+                        if(back == 2):
+                            white = True
+                        else:
+                            black = True
+                    if(black and white):
+                        self.Board[row][col] = 5
+                        return 
+                    
+
+            elif(i == 'right '):
+                back = self.Board[row][col-1]
+                if(back ==1 or back ==2):
+                    if(self.Board[row+1][col] ==back):
+                        return
+                    else:
+                        if(back == 2):
+                            white = True
+                        else:
+                            black = True
+                    if(black and white):
+                        self.Board[row][col] = 5
+                        return 
+            else:
+                if(white):
+                    self.Board[row][col] = 4
+                elif(black):
+                    self.Board[row][col]=3
+                else:
+                    self.Board[row][col]=0
+            
+        return 
+
+
+
 
 
 
@@ -131,16 +251,33 @@ class Othello():
     def click(self, event):
         # self.changeColor(self.firstSquare)
         # print(event.x,"   ",event.y)
+
+        for i in range(len(self.Board)):
+            for o in range(len(self.Board[i])):
+                print(self.Board[i][o],end='\t')
+            print()
+
+
+
         boardPosition = self.convertGridToBoard([event.x,event.y])
+        print(boardPosition)
         if(self.validMove(self.convertGridToBoard([event.x,event.y]))):
             if(self.currentColor):
-                self.canvas.itemconfig( self.Square[boardPosition[0]][boardPosition[1]],fill='black')
+                self.placeMove(boardPosition[0],boardPosition[1],'black')
+                # self.canvas.itemconfig( self.Square[boardPosition[0]][boardPosition[1]],fill='black')
             else:
-                self.canvas.itemconfig( self.Square[boardPosition[0]][boardPosition[1]],fill='white')
+                self.placeMove(boardPosition[0],boardPosition[1],'white')
+
+                # self.canvas.itemconfig( self.Square[boardPosition[0]][boardPosition[1]],fill='white')
 
             self.currentColor = not self.currentColor
         else:
             print("not valid move")
+
+        for i in range(len(self.Board)):
+            for o in range(len(self.Board[i])):
+                print(self.Board[i][o],end='\t')
+            print()
         return 
     
 
@@ -148,8 +285,6 @@ class Othello():
         return True
 
     def convertGridToBoard(self,cor):
-
-
         # print ([int(cor[0]//(size_of_board/numPerRowCol)),int(cor[1]//(size_of_board/numPerRowCol))])
         return [int(cor[1]//(size_of_board/numPerRowCol)),int(cor[0]//(size_of_board/numPerRowCol))]
 
