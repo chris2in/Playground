@@ -130,10 +130,10 @@ class Othello():
                         directionToCheck.append(2)
                         directionToCheck.append(3)
                         directionToCheck.append(4)
-
+                self.updateDirection(row,col,directionToCheck)
             # print()
                 
-    def updateDirection(self,direction):
+    def updateDirection(self,x,y,direction):
         # direction:
         # up - 1
         # down - 2
@@ -141,9 +141,18 @@ class Othello():
         # right -4
         # results:
         # can be black:3
+        result = 0 
         
         for i in direction:
             if(i == 1):
+                # newRow = x-1
+                # base = self.Squares[x][newRow].indicator
+                # if(base == 1 or base ==2 ):
+                #     while newRow> 0 and self.Squares[x][newRow]==base:
+                #         newRow = newRow -1
+                    
+                #     if(self.Squares[x][newRow]==1 or self.Squares[x][newRow] ==2 ) and self.Squares
+                    
                 return
             elif(i == 2):
                 return
