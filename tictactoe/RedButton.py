@@ -60,6 +60,7 @@ class Othello():
             for o in range(numPerRowCol):
                 indicator = i*8+o
                 self.Square[i].append(self.canvas.create_rectangle(indicator%numPerRowCol*length,indicator//numPerRowCol*length,indicator%numPerRowCol*length+length,indicator//numPerRowCol*length+length, outline='dark gray'))
+                self.canvas.create_rec
                 self.Board[i].append(0)
             print(self.Board)
 
@@ -126,7 +127,7 @@ class Othello():
 
         #update the color in self board 
     #   work point 2: able to flip and change color, updat the self.board
-    #  git hub test
+
 
 
     def updateAvilableMove(self):

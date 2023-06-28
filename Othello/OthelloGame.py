@@ -40,7 +40,32 @@ class Square():
         
         OthelloObject.canvas.itemconfig(self.Rectangle,fill=newColor)
         # print('called')
-        return 
+        return
+
+    def ChangeIndicator(self,OthelloObject,newIndi):
+        print("changing color to {}".format(newIndi))
+        if(int(newIndi) in [1,2,3,4,5]):
+            print("changing starts ")
+            self.indicator=newIndi
+
+            if(newIndi==1):
+                OthelloObject.canvas.itemconfig(self.Rectangle,fill = 'black')
+            elif(newIndi ==2):
+                OthelloObject.canvas.itemconfig(self.Rectangle,fill = 'white')
+            elif(newIndi ==3):
+                OthelloObject.canvas.itemconfig(self.Rectangle,fill = 'red')
+            elif(newIndi ==4):
+                OthelloObject.canvas.itemconfig(self.Rectangle,fill = 'blue')
+            elif(newIndi ==5):
+                OthelloObject.canvas.itemconfig(self.Rectangle,fill = 'light green')
+            
+
+
+                
+
+
+
+
     
     def getX(self):
         return self.x
@@ -69,18 +94,19 @@ class Othello():
         for i in range(numPerRowCol):
             self.Squares.append([])
             for o in range(numPerRowCol):
-                self.Squares[i].append(Square(self,o,i))
+                self.Squares[i].append(Square(self,i,o))
         
-        self.Squares[4][3].changeColor(self,'black')
-        self.Squares[3][4].changeColor(self,'black')
-        self.Squares[3][3].changeColor(self,'white')
-        self.Squares[4][4].changeColor(self,'white')
+        self.Squares[4][3].ChangeIndicator(self,1)
+        self.Squares[3][4].ChangeIndicator(self,1)
+        self.Squares[3][3].ChangeIndicator(self,2)
+        self.Squares[4][4].ChangeIndicator(self,2)
 
 
         self.updateBoard()
+        print("result is {}".format(self.updateDirection(2,3,[3,4])))
 
     def convertGridToBoard(self,cor):
-        return [int(cor[1]//(size_of_board/numPerRowCol)),int(cor[0]//(size_of_board/numPerRowCol))]
+        return [int(cor[0]//(size_of_board/numPerRowCol)),int(cor[1]//(size_of_board/numPerRowCol))]
 
     def updateBoard(self):
         # for row in range(len(self.Squares)):
@@ -113,7 +139,7 @@ class Othello():
                             directionToCheck.append(1)
                             
                         
-                    elif(col == numPerRowCol-1):
+                    elif(col >= numPerRowCol-1):
                         directionToCheck.append(3)
                         if(row == 0):
                             directionToCheck.append(2)
@@ -130,7 +156,14 @@ class Othello():
                         directionToCheck.append(2)
                         directionToCheck.append(3)
                         directionToCheck.append(4)
-                self.updateDirection(row,col,directionToCheck)
+
+
+        #         self.Squares[row][col].ChangeIndicator(self,self.updateDirection(row,col,directionToCheck))
+        # print("herrrrrrrrrrrre")
+        # self.Squares[4][6].ChangeIndicator(self,4)
+
+                # self.Squares[5][5].ChangeIndicator(self,5)
+
             # print()
                 
     def updateDirection(self,x,y,direction):
@@ -141,9 +174,16 @@ class Othello():
         # right -4
         # results:
         # can be black:3
+        # can be white:4
+        # can be white or black: 5
+        
+        available3=False
+        available4=False
+
         result = 0 
         
         for i in direction:
+            print("going throught {} now".format(i))
             if(i == 1):
                 # newRow = x-1
                 # base = self.Squares[x][newRow].indicator
@@ -152,16 +192,71 @@ class Othello():
                 #         newRow = newRow -1
                     
                 #     if(self.Squares[x][newRow]==1 or self.Squares[x][newRow] ==2 ) and self.Squares
-                    
-                return
+                # for i in range(newBase+1, len(self.Squares[0])):
+                #         if(self.Squares[i][y] !=base):
+                #             if(self.Squares[i][y]!= 1 and self.Squares[i][y] !=2):
+                #                 break 
+                #             elif(self.Squares[i][y] ==2):
+                #                 return 2
+                #             elif(self.Squares[i][y] ==1):
+                #                 return 1
+                print('place holder for check up')
+
+                # return
             elif(i == 2):
-                return
+                print('place holder for check down')
+
+                # return
 
             elif(i==3):
-                return
-            
+                print("check left")
+                newBase = x-1
+                
+                base = self.Squares[newBase][y].indicator
+                for i in range(newBase-1, -1,-1):
+                        if(self.Squares[i][y].indicator !=base):
+                            if(self.Squares[i][y].indicator!= 1 and self.Squares[i][y].indicator !=2):
+                                print('break from check left')
+                                break 
+                            elif(not available4 and self.Squares[i][y].indicator ==2):
+                                available4 = True
+                            elif(not available3 and self.Squares[i][y].indicator ==1):
+                                available3 =True
+                print("exit check left")
             elif(i==4):
-                return
+                print('checking right')
+                newBase = x+1
+                # print("x is {} and y is {}, new base is {},{} and the indicator is {}".format(x,y,newBase,y,self.Squares[newBase][y].indicator))
+                print("x is {} and y is {}".format(newBase,y))
+                base = self.Squares[newBase][y].indicator
+
+                print("base is {}".format(base))
+                if(base ==1 or base ==2):
+                    print('base is 1 or 2')
+                    for i in range(newBase+1, len(self.Squares[0])):
+                        print('traversing ')
+                        if(self.Squares[i][y].indicator !=base):
+                            print('the  value is {}'.format(self.Squares[i][y].indicator))
+
+                            if(self.Squares[i][y].indicator!= 1 and self.Squares[i][y].indicator !=2):
+                                print('break')
+                                break 
+                            elif(not available4 and self.Squares[i][y].indicator ==2):
+                                available4 = True
+                            elif(not available3 and self.Squares[i][y].indicator ==1):
+                                available3 =True
+
+                
+
+        if(available3):
+            if(available4):
+                return 5
+            else:
+                return 3
+        elif(available4):
+            return 4
+        else:
+            return 0 
 # work point
     def click(self,event):
 
