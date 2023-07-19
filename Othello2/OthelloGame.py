@@ -65,6 +65,10 @@ class Othello():
             for o in range(numPerRowCol):
                 self.Squres[i].append(Squre(self,i,o))
 
+        self.Squres[4][3].changeColor(self,1)
+        self.Squres[3][4].changeColor(self,1)
+        self.Squres[3][3].changeColor(self,2)
+        self.Squres[4][4].changeColor(self,2)
 
 
 
