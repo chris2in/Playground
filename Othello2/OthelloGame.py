@@ -9,6 +9,7 @@ class Squre():
         self.y = y
         self.outline = outline
         self.indicator = indicator
+        self.color = 'gray'
         length = size_of_board/numPerRowCol
         if(self.indicator ==1):
             self.color = 'black'
@@ -31,6 +32,7 @@ class Squre():
     #           where self will pass the Othello object here so you can access the canvas' functions to change color 
     def changeColor (self,OthelloObject,newIndi):
         color = 'gray'
+        self.indicator=newIndi
         if(newIndi == 1):
             color = 'black'
         elif(newIndi ==2):
@@ -41,7 +43,12 @@ class Squre():
             color = 'blue'
         elif(newIndi ==5):
             color = 'light green'
+        
         OthelloObject.canvas.itemconfig(self.Rectangle,fill = color)
+
+
+    def changeIndi(self,newIndi):
+        self.indicator=newIndi
 
 
 class Othello():
@@ -70,13 +77,41 @@ class Othello():
         self.Squres[3][3].changeColor(self,2)
         self.Squres[4][4].changeColor(self,2)
 
+        self.Squres[3][2].changeIndi(3)
+        self.Squres[2][3].changeIndi(3)
+        self.Squres[5][4].changeIndi(3)
+        self.Squres[4][5].changeIndi(3)
+
+        self.Squres[4][2].changeIndi(4)
+        self.Squres[2][4].changeIndi(4)
+        self.Squres[5][3].changeIndi(4)
+        self.Squres[3][5].changeIndi(4)
+
+        
 
 
 
     def click(self,event):
         result =  ([int(event.x//(size_of_board/numPerRowCol)), int(event.y//(size_of_board/numPerRowCol))])
+        if(self.turn):
+            if(self.Squres[result[0]][result[1]].indicator==3 or self.Squres[result[0]][result[1]].indicator==5):
+                self.Squres[result[0]][result[1]].changeColor(self,1)
+
+                self.turn = not   self.turn 
+            else:
+                print("wrong move, the indi is  ",self.Squres[result[0]][result[1]].indicator)
+        else:
+            if(self.Squres[result[0]][result[1]].indicator==4 or self.Squres[result[0]][result[1]].indicator==5):
+                self.Squres[result[0]][result[1]].changeColor(self,2)
+                self.turn = not   self.turn 
+
+            else:
+                print("wrong move, the indi is  ",self.Squres[result[0]][result[1]].indicator)
+
+        
+        
         print(result)
-        # self.Squres[result[0]][result[1]].changeColor(self,3)
+
     def mainloop(self):
         self.window.mainloop()
 
