@@ -88,29 +88,79 @@ class Othello():
         self.Squres[3][5].changeIndi(4)
 
         
+    def updateTheBoard(self):
+        return
+    def updateAfterMove(self,cord):
+        valid = False
 
+        # can only be 1(black) or 2(white) at this point and HAS to be valid move
+        indi = self.Squares[cord[0]][cord[1]].indicator
+        
+        #   however, still unsure which direction it will change color
+        if(cord[0]>0):
+            numOfChange= 0
+            # checking from the point towards left
+            i = cord[0]-1
+            while i >=0:
+                newIndi = self.Squres[i][cord[1]].indicator
+                if(newIndi in [indi, 0,3,4,5]):
+                    break
+                elif (newIndi ==1 or newIndi ==2):
+                    numOfChange += 1
+            for i in range(numOfChange):
+                self.Squres[cord[0]-i][cord[1]].changeColor(self,indi)
+
+        if(cord[0]<numPerRowCol)
+        # work point, continue wiht this to make it check from the point to the right 
+
+
+
+
+
+            
+
+                
+                
+    
+
+        if(valid):
+            self.updateTheBoard()    
+        return 
+    
+    def displayBoard(self):
+        for row in range(len(self.Squres)):
+            # print('row ' ,row  , end = ' ' )
+            for col in range(len(self.Squres[row])):
+                print( self.Squres[col][row].indicator,end = ' ')
+            print()
+        return
 
 
     def click(self,event):
         result =  ([int(event.x//(size_of_board/numPerRowCol)), int(event.y//(size_of_board/numPerRowCol))])
+        # self.updateAfterMove()
+        print("you are clicking ", result)
         if(self.turn):
             if(self.Squres[result[0]][result[1]].indicator==3 or self.Squres[result[0]][result[1]].indicator==5):
                 self.Squres[result[0]][result[1]].changeColor(self,1)
 
                 self.turn = not   self.turn 
+                self.updateAfterMove(result)
             else:
                 print("wrong move, the indi is  ",self.Squres[result[0]][result[1]].indicator)
+            
         else:
             if(self.Squres[result[0]][result[1]].indicator==4 or self.Squres[result[0]][result[1]].indicator==5):
                 self.Squres[result[0]][result[1]].changeColor(self,2)
                 self.turn = not   self.turn 
+                self.updateAfterMove(result)
 
             else:
                 print("wrong move, the indi is  ",self.Squres[result[0]][result[1]].indicator)
 
         
         
-        print(result)
+        # print(result)
 
     def mainloop(self):
         self.window.mainloop()
